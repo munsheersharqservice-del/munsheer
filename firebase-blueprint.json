@@ -1,0 +1,112 @@
+{
+  "entities": {
+    "Room": {
+      "title": "Room",
+      "description": "Villa room master details, tenant info, rent, and advance",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "roomNumber": { "type": "string" },
+        "name": { "type": "string" },
+        "monthlyRent": { "type": "number" },
+        "advance": { "type": "number" },
+        "mobNo": { "type": "string" },
+        "color": { "type": "string" },
+        "monthlyPayments": { "type": "object" },
+        "notes": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "roomNumber", "name", "monthlyRent"]
+    },
+    "PersonalTransaction": {
+      "title": "PersonalTransaction",
+      "description": "Personal and family finance ledger records starting October 2026",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["income", "expense", "transfer"] },
+        "category": { "type": "string" },
+        "amount": { "type": "number" },
+        "date": { "type": "string" },
+        "reason": { "type": "string" },
+        "familyMember": { "type": "string" },
+        "paymentMethod": { "type": "string" },
+        "source": { "type": "string" },
+        "notes": { "type": "string" },
+        "odometerKm": { "type": "number" },
+        "fuelLitres": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "type", "category", "amount", "date"]
+    },
+    "MeterReading": {
+      "title": "MeterReading",
+      "description": "Monthly utility meter reading for Kahramaa electricity and water meters",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "meterNumber": { "type": "string" },
+        "month": { "type": "string" },
+        "previousReading": { "type": "number" },
+        "currentReading": { "type": "number" },
+        "unitsConsumed": { "type": "number" },
+        "billAmountQAR": { "type": "number" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "meterNumber", "month", "billAmountQAR"]
+    },
+    "VillaExpenseReceipt": {
+      "title": "VillaExpenseReceipt",
+      "description": "Itemized maintenance receipts and villa bills",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "amount": { "type": "number" },
+        "date": { "type": "string" },
+        "category": { "type": "string" },
+        "receiptUrl": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "title", "amount", "date"]
+    },
+    "GlobalDatabaseState": {
+      "title": "GlobalDatabaseState",
+      "description": "Synchronized global database document holding unified state for all devices",
+      "type": "object",
+      "properties": {
+        "rooms": { "type": "array" },
+        "transactions": { "type": "array" },
+        "meterReadings": { "type": "array" },
+        "villaItems": { "type": "array" },
+        "monthlyMaintenance": { "type": "object" },
+        "villaMasterRentDetails": { "type": "object" },
+        "lastUpdated": { "type": "string" },
+        "deviceSyncVersion": { "type": "number" }
+      },
+      "required": ["lastUpdated"]
+    }
+  },
+  "firestore": {
+    "/global_database_state/{stateId}": {
+      "schema": { "$ref": "#/entities/GlobalDatabaseState" },
+      "description": "Unified central database document synced in real-time across all mobile and desktop devices"
+    },
+    "/rooms/{roomId}": {
+      "schema": { "$ref": "#/entities/Room" },
+      "description": "Villa 12 rooms master records"
+    },
+    "/personal_transactions/{txId}": {
+      "schema": { "$ref": "#/entities/PersonalTransaction" },
+      "description": "Personal & family financial transactions"
+    },
+    "/meter_readings/{readingId}": {
+      "schema": { "$ref": "#/entities/MeterReading" },
+      "description": "Kahramaa electricity & water meter records"
+    },
+    "/villa_receipts/{receiptId}": {
+      "schema": { "$ref": "#/entities/VillaExpenseReceipt" },
+      "description": "Villa maintenance & itemized receipts"
+    }
+  }
+}

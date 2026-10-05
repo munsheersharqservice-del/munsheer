@@ -1,0 +1,36 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global real-time synchronized state for property & personal finance
+    match /global_database_state/{stateId} {
+      allow read, write: if true;
+    }
+
+    // Room master records
+    match /rooms/{roomId} {
+      allow read, write: if true;
+    }
+
+    // Personal & vehicle ledger transactions
+    match /personal_transactions/{txId} {
+      allow read, write: if true;
+    }
+
+    // Kahramaa electricity & water meter readings
+    match /meter_readings/{readingId} {
+      allow read, write: if true;
+    }
+
+    // Villa maintenance and expense receipts
+    match /villa_receipts/{receiptId} {
+      allow read, write: if true;
+    }
+
+    // Fallback rule for connection tests and metadata
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
+

@@ -1,0 +1,8 @@
+{
+  "name": "Remix MUNSHEER",
+  "description": "Manage 11 rooms rent collection, advance deposits, monthly partial/full payments, maintenance expenses, utilities, and net profit.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
