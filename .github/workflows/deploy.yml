@@ -14,6 +14,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  ACTIONS_RUNNER_FORCE_ACTIONS_NODE_VERSION: 'node24'
+
 jobs:
   build-and-deploy:
     environment:
